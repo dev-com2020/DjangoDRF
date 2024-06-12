@@ -4,4 +4,5 @@ from demo_app import views
 urlpatterns = [
     path('hello/', views.hello_world),
     path('hello_drf/', views.hello_world_drf),
+    path('apiview/', views.DemoAPIView.as_view())
 ]
