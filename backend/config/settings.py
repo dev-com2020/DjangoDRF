@@ -40,6 +40,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'cacheops',
 ]
 
 CUSTOM_APPS = [
@@ -100,6 +101,13 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
         'LOCATION': config('REDIS_LOCATION'),
     }
+}
+
+CACHEOPS_REDIS = {
+    "host": "redis-10401.c311.eu-central-1-1.ec2.redns.redis-cloud.com",
+    "port": 10401,
+    "socket_timeout": 3,
+    "password": config('REDIS_PASSWORD'),
 }
 
 # Password validation
