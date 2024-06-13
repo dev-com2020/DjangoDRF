@@ -24,3 +24,5 @@ class CoverImage(BaseTimeStampModel):
 
 class DemoModel(BaseTimeStampModel):
     name = models.CharField(max_length=50)
+
+
