@@ -8,6 +8,6 @@ class BlogSerializer(serializers.ModelSerializer):
         model = models.Blog
         fields = '__all__'
         extra_kwargs = {
-            'title': {'min_length': 100, 'required': True},
+            'title': {'min_length': 1, 'required': True},
             'updated_at': {'write_only': True}
         }
