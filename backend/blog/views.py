@@ -9,6 +9,8 @@ from rest_framework.response import Response
 
 
 class BlogGetCreateView(views.APIView):
+
+
     def get(self, request):
         blogs_obj_list = models.Blog.objects.all()
         blogs = serializers.BlogSerializer(blogs_obj_list, many=True)
@@ -38,7 +40,7 @@ class BlogGetUpdateFilterView(generics.ListAPIView):
 
 
 @cached(timeout=60 * 10)
-def get_all_blogs(author_id):
+def get_all_blogs(author_id=1):
     print('Pobieram wszystkie wpisy autora')
     blogs = models.Blog.objects.filter(author_id=author_id)
     blogs_data = serializers.BlogSerializer(blogs, many=True).data
