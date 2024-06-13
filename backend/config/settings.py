@@ -46,6 +46,7 @@ CUSTOM_APPS = [
     'demo_app',
     'blog',
     'author',
+    'custom_user',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
@@ -132,3 +133,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'custom_user.CustomUser'
