@@ -101,8 +101,8 @@ def get_blog_with_pagination(request):
     return Response({'blogs': blogs_data})
 
 
-@api_view(['GET'])
-def publish_blog(request):
-    blog_id = request.GET.get('id')
-    public.publish_blog(blog_id)
-    return Response({"status": "success"})
+# @api_view(['GET'])
+# def publish_blog(request):
+#     blog_id = request.GET.get('id')
+#     public.publish_blog(blog_id)
+#     return Response({"status": "success"})
