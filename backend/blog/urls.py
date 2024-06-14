@@ -8,5 +8,5 @@ urlpatterns = [
     path('find/', views.get_blogs_by_author),
     path('unpagination/', views.get_blog_without_pagination),
     path('pagination/', views.get_blog_with_pagination),
-    # path('publish/', views.publish_blog),
+    path('publish/', views.publish_blog),
 ]

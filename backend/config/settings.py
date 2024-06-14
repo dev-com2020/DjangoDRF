@@ -188,8 +188,12 @@ LOGGING = {
     "loggers": {
         'django_default': {
             "handlers": ["django_file"],
-            "level": "ERROR",
+            "level": "INFO",
             "propagate": True,
         },
     },
 }
+
+REDIS_CONNECTION_STRING = config('REDIS_LOCATION')
+CELERY_BROKER_URL = config('REDIS_LOCATION')
+CELERY_RESULT_BACKEND = config('REDIS_LOCATION')

@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 from backend.blog import public
+from backend.blog.tasks import send_email_to_followers
 from backend.common.logging_util import log_event, log_error
 
 
@@ -106,3 +107,23 @@ def get_blog_with_pagination(request):
 #     blog_id = request.GET.get('id')
 #     public.publish_blog(blog_id)
 #     return Response({"status": "success"})
+
+
+from config.celery import debug_task
+
+
+@api_view(['GET'])
+def verify_blog(request):
+    verify_blog = request.GET.get('verify_word')
+    info = debug_task.delay(f"Zadanie Celery {verify_blog}")
+    log_event(str(info), '')
+    return Response({'status': "success"})
+
+
+@api_view(['GET'])
+def publish_blog(request):
+    blog_id = request.GET.get('blog_id')
+    author_id = request.GET.get('author_id')
+    print(f"Publikujemy bloga {blog_id}")
+    send_email_to_followers.delay(author_id, blog_id)
+    return Response({'status': 'success'})
