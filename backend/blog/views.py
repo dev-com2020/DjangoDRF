@@ -4,11 +4,14 @@ from rest_framework import views, response, status, generics, filters
 from blog import models
 from blog import serializers
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
 
 class BlogGetCreateView(views.APIView):
+    throttle_classes = [AnonRateThrottle, UserRateThrottle]
+    throttle_scope = 'blog'
 
     def get(self, request):
         blogs_obj_list = models.Blog.objects.all()
@@ -59,6 +62,7 @@ def get_all_blogs(author_id=1):
     return blogs_data
 
 
+@throttle_classes([AnonRateThrottle, UserRateThrottle])
 @api_view(['GET'])
 def get_blogs_by_author(request):
     author_id = request.GET.get('author_id')
