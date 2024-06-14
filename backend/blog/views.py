@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
+from backend.blog import public
 from backend.common.logging_util import log_event, log_error
 
 
@@ -98,3 +99,10 @@ def get_blog_with_pagination(request):
     blogs = models.Blog.objects.all()[offset:limit]
     blogs_data = serializers.BlogSerializer(blogs, many=True).data
     return Response({'blogs': blogs_data})
+
+
+@api_view(['GET'])
+def publish_blog(request):
+    blog_id = request.GET.get('id')
+    public.publish_blog(blog_id)
+    return Response({"status": "success"})
