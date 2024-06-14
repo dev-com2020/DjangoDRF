@@ -188,7 +188,7 @@ LOGGING = {
     "loggers": {
         'django_default': {
             "handlers": ["django_file"],
-            "level": "INFO",
+            "level": "ERROR",
             "propagate": True,
         },
     },
