@@ -8,6 +8,8 @@ from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 
+from backend.common.logging_util import log_event
+
 
 class BlogGetCreateView(views.APIView):
     throttle_classes = [AnonRateThrottle, UserRateThrottle]
@@ -69,6 +71,7 @@ def get_blogs_by_author(request):
     if author_id is not None:
         try:
             author_id = int(author_id)
+            log_event('get_blogs_by_author', {'author_id': author_id})
         except ValueError:
             return Response({'error': 'Niepoprawny id autora'}, status=status.HTTP_400_BAD_REQUEST)
         blogs = get_all_blogs(author_id)
