@@ -80,3 +80,9 @@ def get_blogs_by_author(request):
         return Response({'blogs': blogs})
     else:
         return Response({'error': 'podanie id autora jest wymagane'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_blog_without_pagination(request):
+    blogs = models.Blog.objects.all()
+    blogs_data = serializers.BlogSerializer(blogs, many=True).data
+    return Response({'blogs': blogs_data})
