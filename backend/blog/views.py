@@ -81,8 +81,20 @@ def get_blogs_by_author(request):
     else:
         return Response({'error': 'podanie id autora jest wymagane'}, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET'])
 def get_blog_without_pagination(request):
     blogs = models.Blog.objects.all()
+    blogs_data = serializers.BlogSerializer(blogs, many=True).data
+    return Response({'blogs': blogs_data})
+
+
+@api_view(['GET'])
+def get_blog_with_pagination(request):
+    page = int(request.GET.get('page', 1))
+    page_size = int(request.GET.get('page_size', 3))
+    offset = (page - 1) * page_size
+    limit = page * page_size
+    blogs = models.Blog.objects.all()[offset:limit]
     blogs_data = serializers.BlogSerializer(blogs, many=True).data
     return Response({'blogs': blogs_data})
