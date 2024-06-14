@@ -5,4 +5,4 @@ class ApplicationConfig(AppConfig):
     name = "author"
 
     def ready(self):
-        from author import receivers
+        import author.receivers
