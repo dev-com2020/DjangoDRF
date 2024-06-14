@@ -101,6 +101,9 @@ DATABASES = {
         'USER': config('DB_USER'),
         'PORT': config('DB_PORT'),
         'PASSWORD': config('DB_PASSWORD'),
+        'TEST': {
+            'NAME': 'mytestbase',
+        }
     }
 }
 

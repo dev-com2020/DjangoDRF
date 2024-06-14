@@ -7,8 +7,6 @@ from blog import serializers
 from rest_framework.decorators import api_view, throttle_classes
 from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
-
-from backend.blog import public
 from backend.blog.tasks import send_email_to_followers
 from backend.common.logging_util import log_event, log_error
 
@@ -127,3 +125,10 @@ def publish_blog(request):
     print(f"Publikujemy bloga {blog_id}")
     send_email_to_followers.delay(author_id, blog_id)
     return Response({'status': 'success'})
+
+
+@api_view(['GET'])
+def basic_req(request):
+    if request.method == 'GET':
+        resp = {'msg': 'metoda jest ok'}
+        return Response(data=resp, status=status.HTTP_200_OK)

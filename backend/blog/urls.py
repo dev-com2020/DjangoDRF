@@ -9,4 +9,5 @@ urlpatterns = [
     path('unpagination/', views.get_blog_without_pagination),
     path('pagination/', views.get_blog_with_pagination),
     path('publish/', views.publish_blog),
+    path('hello/', views.basic_req),
 ]
