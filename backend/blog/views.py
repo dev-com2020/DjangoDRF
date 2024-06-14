@@ -62,5 +62,12 @@ def get_all_blogs(author_id=1):
 @api_view(['GET'])
 def get_blogs_by_author(request):
     author_id = request.GET.get('author_id')
-    blogs = get_all_blogs(author_id)
-    return Response({'blogs': blogs})
+    if author_id is not None:
+        try:
+            author_id = int(author_id)
+        except ValueError:
+            return Response({'error': 'Niepoprawny id autora'}, status=status.HTTP_400_BAD_REQUEST)
+        blogs = get_all_blogs(author_id)
+        return Response({'blogs': blogs})
+    else:
+        return Response({'error': 'podanie id autora jest wymagane'}, status=status.HTTP_400_BAD_REQUEST)
