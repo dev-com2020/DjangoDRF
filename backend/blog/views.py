@@ -10,7 +10,6 @@ from rest_framework.response import Response
 
 class BlogGetCreateView(views.APIView):
 
-
     def get(self, request):
         blogs_obj_list = models.Blog.objects.all()
         blogs = serializers.BlogSerializer(blogs_obj_list, many=True)
@@ -23,6 +22,14 @@ class BlogGetCreateView(views.APIView):
             b_obj.save()
             return response.Response(b_obj.data, status=status.HTTP_201_CREATED)
         return response.Response(b_obj.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        try:
+            blog = models.Blog.objects.get(pk=pk)
+        except models.Blog.DoesNotExist:
+            return response.Response(status=status.HTTP_404_NOT_FOUND)
+        blog.delete()
+        return response.Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class BlogGetUpdateView(generics.ListCreateAPIView):
@@ -37,6 +44,11 @@ class BlogGetUpdateFilterView(generics.ListAPIView):
     serializer_class = serializers.BlogSerializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['title']
+
+
+class BlogGetUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Blog.objects.all()
+    serializer_class = serializers.BlogSerializer
 
 
 @cached(timeout=60 * 10)
